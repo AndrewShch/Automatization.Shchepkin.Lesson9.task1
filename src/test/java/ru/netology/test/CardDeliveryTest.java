@@ -20,10 +20,10 @@ import static ru.netology.data.DataGenerator.Registration.generateDate;
 public class CardDeliveryTest {
     RegistrationInfo info = DataGenerator.Registration.generate("ru");
 
-@BeforeAll
-void setUpAll(){
-    SelenideLogger.addListener("allure", new AllureSelenide());
-}
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
     @BeforeEach
     void setUp() {
@@ -50,6 +50,7 @@ void setUpAll(){
 
 
     }
+
     @Test
     void emptyCityField() {
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
@@ -60,6 +61,7 @@ void setUpAll(){
         $("[class=button__text]").click();
         $("[data-test-id='city'].input_invalid .input__sub").shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
+
     @Test
     void emptyNameField() {
         $("[data-test-id='city'] input").setValue(citiesValid());
@@ -70,6 +72,7 @@ void setUpAll(){
         $("[class=button__text]").click();
         $("[data-test-id='name'].input_invalid .input__sub").shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
+
     @Test
     void emptyPhoneField() {
         $("[data-test-id='city'] input").setValue(citiesValid());
@@ -80,6 +83,7 @@ void setUpAll(){
         $("[class=button__text]").click();
         $("[data-test-id='phone'].input_invalid .input__sub").shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
+
     @Test
     void emptyDateField() {
         $("[data-test-id='city'] input").setValue(citiesValid());
@@ -90,8 +94,9 @@ void setUpAll(){
         $("[class=button__text]").click();
         $("[data-test-id='date'] .input_invalid .input__sub").shouldHave(Condition.text("Неверно введена дата"));
     }
+
     @Test
-    void citiesNotValid(){
+    void citiesNotValid() {
         $("[data-test-id='city'] input").setValue(DataGenerator.Registration.citiesNotValid());
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[data-test-id='date'] input").setValue(generateDate(4));
